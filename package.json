@@ -1,0 +1,30 @@
+{
+  "name": "rhebok",
+  "version": "0.1.0",
+  "description": "Easy to use hierarchical role based access control (RBAC) with support for asynchronous authorization.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": "https://github.com/3VLINC/rhebok",
+  "scripts": {
+    "pretest": "npm run build",
+    "test": "mocha \"dist/**/*.spec.js\"",
+    "build": "rimraf dist/* && tsc",
+    "dev": "tsc -w"
+  },
+  "author": "3VL INC.",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/chai-as-promised": "0.0.29",
+    "@types/lodash": "^4.14.43",
+    "@types/mocha": "^2.2.33",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "mocha": "^3.2.0",
+    "rimraf": "^2.5.4",
+    "typescript": "^2.1.4"
+  },
+  "dependencies": {
+    "lodash": "^4.17.2"
+  }
+}
