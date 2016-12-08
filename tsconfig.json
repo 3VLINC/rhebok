@@ -6,8 +6,7 @@
     "outDir": "./dist",
     "declaration": true,
     "typeRoots": [
-      "./node_modules/@types",
-      "./src/typings/index.d.ts"
+      "./node_modules/@types"
     ]
   },
   "include": [

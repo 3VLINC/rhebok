@@ -1,38 +1,38 @@
 import { isArray, find, sortedUniq } from 'lodash';
 
-interface RoleObjParams {
+export interface RoleObjParams {
   caps?: GenericCapObj[];
   inherits?: string;
   children?: RoleObj[];
 };
 
-interface BasicCapObjParams {
+export interface BasicCapObjParams {
 
 };
 
-interface AsyncCapObjParams {
+export interface AsyncCapObjParams {
   test: (context: any) => Promise<Boolean>;
 };
 
-function BasicCap(name: string, params?:BasicCapObjParams) {
+export function BasicCap(name: string, params?:BasicCapObjParams) {
   
   return new BasicCapObj(name, params);
 
 }
 
-function AsyncCap(name:string, params: AsyncCapObjParams) {
+export function AsyncCap(name:string, params: AsyncCapObjParams) {
 
   return new AsyncCapObj(name, params);
 
 }
 
-function Role (name: string, params?: RoleObjParams) {
+export function Role (name: string, params?: RoleObjParams) {
 
   return new RoleObj(name, params);
    
 }
 
-abstract class GenericCapObj {
+export abstract class GenericCapObj {
 
   constructor(private name: string ) {
 
@@ -48,7 +48,7 @@ abstract class GenericCapObj {
 
 }
 
-class BasicCapObj extends GenericCapObj {
+export class BasicCapObj extends GenericCapObj {
   
   constructor(
     name: string,
@@ -67,7 +67,7 @@ class BasicCapObj extends GenericCapObj {
 
 };
 
-class AsyncCapObj extends GenericCapObj {
+export class AsyncCapObj extends GenericCapObj {
 
   constructor(
     name: string,
@@ -86,7 +86,7 @@ class AsyncCapObj extends GenericCapObj {
 
 }
 
-class RoleObj {
+export class RoleObj {
 
   constructor(
     private name: string,
@@ -190,7 +190,7 @@ class RoleNotFoundError extends Error {
   }
 }
 
-class Auth {
+export class Auth {
 
   private roles: RoleObj[] = [];
 
@@ -233,5 +233,3 @@ class Auth {
   }
 
 }
-
-export { Auth, Role, AsyncCap, BasicCap }
