@@ -1,6 +1,6 @@
 import { RoleObj } from './role';
 
-export const RecursePath = (roleObj: RoleObj, roleName: string, rolePath: string[] = []) => {
+export const GetPathToRole = (roleObj: RoleObj, roleName: string, rolePath: string[] = []) => {
 
     if (roleObj.getName() === roleName) {
 
@@ -14,7 +14,7 @@ export const RecursePath = (roleObj: RoleObj, roleName: string, rolePath: string
 
       for(let child of roleObj.getChildren()) {
         
-        if(RecursePath(child, roleName, rolePath)) {
+        if(GetPathToRole(child, roleName, rolePath)) {
 
           return true;
 

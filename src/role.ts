@@ -1,6 +1,6 @@
 import { isArray, find, sortedUniq, cloneDeep, filter } from 'lodash';
-import { RecursePath } from './recurse-path';
-import { RecurseCaps } from './recurse-caps';
+import { GetPathToRole } from './get-path-to-role';
+import { ResolveCaps } from './resolve-caps';
 import { GenericCapObj } from './generic-cap';
 
 export interface RoleObjParams {
@@ -52,9 +52,9 @@ export class RoleObj {
 
     const rolePath = [];
 
-    RecursePath(this, roleName, rolePath);
+    GetPathToRole(this, roleName, rolePath);
 
-    return await RecurseCaps(this, rolePath, capabilities, context);
+    return await ResolveCaps(this, rolePath, capabilities, context);
 
   }
 

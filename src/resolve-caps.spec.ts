@@ -2,7 +2,7 @@ import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 
 import { Role } from './role';
-import { RecurseCaps, InvalidPathError } from './recurse-caps';
+import { ResolveCaps, InvalidPathError } from './resolve-caps';
 import { AsyncCap } from './async-cap';
 import { BasicCap } from './basic-cap';
 
@@ -10,7 +10,7 @@ chai.use(chaiAsPromised);
 
 let expect = chai.expect;
 
-describe('RecurseCaps', () => {
+describe('ResolveCaps', () => {
 
   describe('when given an invalid path to a role', () => {
 
@@ -24,7 +24,7 @@ describe('RecurseCaps', () => {
           );
 
           return expect(
-            RecurseCaps(RootRoleObject, ['grandparuuent', 'somebadpath'], 'makepizza')
+            ResolveCaps(RootRoleObject, ['grandparuuent', 'somebadpath'], 'makepizza')
           ).to.be.rejectedWith(/Role grandparuuent could not be found/);
 
       });
@@ -41,7 +41,7 @@ describe('RecurseCaps', () => {
           );
 
           return expect(
-            RecurseCaps(RootRoleObject, [], 'makepizza')
+            ResolveCaps(RootRoleObject, [], 'makepizza')
           ).to.be.rejectedWith(/No role path provided/);
 
       });
@@ -63,7 +63,7 @@ describe('RecurseCaps', () => {
           );
 
           return expect(
-            RecurseCaps(RootRoleObject, ['grandparent', 'somebadpath'], 'makepizza')
+            ResolveCaps(RootRoleObject, ['grandparent', 'somebadpath'], 'makepizza')
           ).to.be.rejectedWith(/Role somebadpath could not be found/);
 
       });
@@ -90,7 +90,7 @@ describe('RecurseCaps', () => {
           );
 
           expect(
-            await RecurseCaps(RootRoleObject, ['grandparent'], 'makegnocchi')
+            await ResolveCaps(RootRoleObject, ['grandparent'], 'makegnocchi')
           ).to.be.true;
           
         }
@@ -112,7 +112,7 @@ describe('RecurseCaps', () => {
           );
 
           expect(
-            await RecurseCaps(RootRoleObject, ['grandparent'], 'makegnocchi')
+            await ResolveCaps(RootRoleObject, ['grandparent'], 'makegnocchi')
           ).to.be.false;
           
         }
@@ -143,7 +143,7 @@ describe('RecurseCaps', () => {
           );
 
           expect(
-            await RecurseCaps(RootRoleObject, ['grandparent', 'aunt'], ['makegnocchi', 'makepizza'])
+            await ResolveCaps(RootRoleObject, ['grandparent', 'aunt'], ['makegnocchi', 'makepizza'])
           ).to.be.true;
           
         }
@@ -175,7 +175,7 @@ describe('RecurseCaps', () => {
           );
 
           expect(
-            await RecurseCaps(RootRoleObject, ['grandparent', 'aunt'], ['makegnocchi', 'makepizza', 'makegold'])
+            await ResolveCaps(RootRoleObject, ['grandparent', 'aunt'], ['makegnocchi', 'makepizza', 'makegold'])
           ).to.be.false;
           
         }
@@ -215,7 +215,7 @@ describe('RecurseCaps', () => {
           );
           
           expect(
-            await RecurseCaps(RootRoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: true })
+            await ResolveCaps(RootRoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: true })
           ).to.be.true;
           
         }
@@ -255,7 +255,7 @@ describe('RecurseCaps', () => {
           );
           
           expect(
-            await RecurseCaps(RootRoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: false })
+            await ResolveCaps(RootRoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: false })
           ).to.be.false;
           
         }
@@ -293,7 +293,7 @@ describe('RecurseCaps', () => {
           );
           
           return expect(
-            RecurseCaps(RootRoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: false })
+            ResolveCaps(RootRoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: false })
           ).to.be.rejectedWith('Error');
           
         }

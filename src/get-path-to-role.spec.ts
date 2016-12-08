@@ -4,13 +4,13 @@ import * as chaiAsPromised from 'chai-as-promised';
 import { Role } from './role';
 import { AsyncCap } from './async-cap';
 import { BasicCap } from './basic-cap';
-import { RecursePath } from './recurse-path';
+import { GetPathToRole } from './get-path-to-role';
 
 chai.use(chaiAsPromised);
 
 let expect = chai.expect;
 
-describe('RecursePath', () => {
+describe('GetPathToRole', () => {
 
   const RootRoleObject = Role(
     'grandparent',
@@ -86,43 +86,43 @@ describe('RecursePath', () => {
 
     let rolePath = [];
 
-    RecursePath(RootRoleObject, 'grandparent', rolePath);
+    GetPathToRole(RootRoleObject, 'grandparent', rolePath);
 
     expect(rolePath).to.eql(['grandparent']);
 
     rolePath = [];
 
-    RecursePath(RootRoleObject, 'parent', rolePath)
+    GetPathToRole(RootRoleObject, 'parent', rolePath)
 
     expect(rolePath).to.eql(['grandparent', 'parent']);
 
     rolePath = [];
     
-    RecursePath(RootRoleObject, 'me', rolePath)
+    GetPathToRole(RootRoleObject, 'me', rolePath)
 
     expect(rolePath).to.eql(['grandparent', 'parent', 'me']);
     
     rolePath = [];
 
-    RecursePath(RootRoleObject, 'my child', rolePath)
+    GetPathToRole(RootRoleObject, 'my child', rolePath)
 
     expect(rolePath).to.eql(['grandparent', 'parent', 'me', 'my child']);
 
     rolePath = [];
     
-    RecursePath(RootRoleObject, 'aunts sons son', rolePath)
+    GetPathToRole(RootRoleObject, 'aunts sons son', rolePath)
 
     expect(rolePath).to.eql(['grandparent', 'aunt', 'aunts son', 'aunts sons son']);
 
     rolePath = [];
 
-    RecursePath(RootRoleObject, 'uncles daughters daughter', rolePath)
+    GetPathToRole(RootRoleObject, 'uncles daughters daughter', rolePath)
 
     expect(rolePath).to.eql(['grandparent', 'uncle', 'uncles daughter', 'uncles daughters daughter']);
 
     rolePath = [];
     
-    RecursePath(RootRoleObject, 'not found', rolePath)
+    GetPathToRole(RootRoleObject, 'not found', rolePath)
 
     expect(rolePath).to.eql([]);
 

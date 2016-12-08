@@ -1,27 +1,9 @@
 import { isArray, intersection, find, filter } from 'lodash';
 
 import { RoleObj } from './role';
+import { InvalidPathError, NoRolePathError } from './errors';
 
-export class InvalidPathError extends Error {
-
-  constructor(rolePath: string) {
-    
-    super(`Role ${rolePath} could not be found`);
-
-  }
-}
-
-export class NoRolePathError extends Error {
-
-  constructor() {
-
-    super(`No role path provided`);
-
-  }
-
-}
-
-export const RecurseCaps = async (roleObj: RoleObj, rolePath: string[], capsLeftToCheck: string | string[] = [], context?: any) => {
+export const ResolveCaps = async (roleObj: RoleObj, rolePath: string[], capsLeftToCheck: string | string[] = [], context?: any) => {
 
   if (rolePath.length === 0) {
 
@@ -66,7 +48,7 @@ export const RecurseCaps = async (roleObj: RoleObj, rolePath: string[], capsLeft
 
   } else if (rolePath.length > 0) {
     
-    return await RecurseCaps(roleObj.getChild(rolePath[0]), rolePath, capsLeftToCheck, context);
+    return await ResolveCaps(roleObj.getChild(rolePath[0]), rolePath, capsLeftToCheck, context);
 
   }
 

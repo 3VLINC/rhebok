@@ -56,275 +56,63 @@ describe('Role', () => {
 
     });
 
-  //   describe('when role has children', () => {
+  });
 
-  //     describe('and when a role is nested capability', () => {
+  describe('get children', () => {
 
-  //       describe('and the capability is on the requested role', () => {
-          
-  //         it('should return true', 
-  //           async function() {
+    describe('when role has 3 children', () => {
+    
+      it('should return three children', () => {
 
-  //             const auth = new Auth(
-  //               [
-  //                 Role(
-  //                   'other'
-  //                 ),
-  //                 Role(
-  //                   'parent',
-  //                   {
-  //                     caps: [
-  //                       BasicCap('create')
-  //                     ],
-  //                     children: [
-  //                       Role(
-  //                         'child',
-  //                         {
-  //                           caps: [
-  //                             BasicCap('update')
-  //                           ],
-  //                           children: [
-  //                             Role(
-  //                               'grandchild',
-  //                               {
-  //                                 caps: [
-  //                                   BasicCap('modify')
-  //                                 ]
-  //                               }
-  //                             )
-  //                           ]
-  //                         }
-  //                       )
-  //                     ]
-  //                   }
-  //                 )
-  //               ]      
-  //             );
+        const role = Role(
+          'testrole',
+          {
+            children: [
+              Role(
+                'one'
+              ),
+              Role(
+                'two'
+              ),
+              Role(
+                'three'
+              )
+            ]
+          }
+        );
 
-  //             expect(await auth.can('child', 'update')).to.be.true;
+        expect(role.getChildren().length).to.eql(3);
 
-  //           }
-  //         );
-  //       });
+      });
 
-  //       describe('and the capability is on a child role', () => {
-          
-  //         it('should return false', 
-  //           async function() {
+    });
 
-  //             const auth = new Auth(
-  //               [
-  //                 Role(
-  //                   'other'
-  //                 ),
-  //                 Role(
-  //                   'parent',
-  //                   {
-  //                     caps: [
-  //                       BasicCap('create')
-  //                     ],
-  //                     children: [
-  //                       Role(
-  //                         'child',
-  //                         {
-  //                           caps: [
-  //                             BasicCap('update')
-  //                           ],
-  //                           children: [
-  //                             Role(
-  //                               'grandchild',
-  //                               {
-  //                                 caps: [
-  //                                   BasicCap('modify')
-  //                                 ]
-  //                               }
-  //                             )
-  //                           ]
-  //                         }
-  //                       )
-  //                     ]
-  //                   }
-  //                 )
-  //               ]      
-  //             );
+    describe('when role has no children', () => {
+    
+      it('should return no children', () => {
 
-  //             expect(await auth.can('child', 'modify')).to.be.false;
-
-  //           }
-  //         );
-  //       });
+        let role;
         
-  //       describe('and the capability is on a parent role', () => {
-          
-  //         it('should return true', 
-  //           async function() {
+        role = Role(
+          'testrole'
+        );
 
-  //             const auth = new Auth(
-                
-  //                 Role(
-  //                   'parent',
-  //                   {
-  //                     caps: [
-  //                       BasicCap('create')
-  //                     ],
-  //                     children: [
-  //                       Role(
-  //                         'child',
-  //                         {
-  //                           caps: [
-  //                             BasicCap('update')
-  //                           ]
-  //                         }
-  //                       )
-  //                     ]
-  //                   }
-  //                 )      
-  //             );
+        expect(role.getChildren().length).to.eql(0);
+        
+        role = Role(
+          'testrole',
+          {
+            children: [
+              
+            ]
+          }
+        );
 
-  //             expect(await auth.can('child', 'create')).to.be.true;
+        expect(role.getChildren().length).to.eql(0);
 
-  //           }
-  //         );
-  //       });
+      });
 
-  //     });
-
-  //   });
-
-  //   describe('when cap test is async', () => {
-
-  //     const AsyncResolveTrue = function(context) {
-  //       return Promise.resolve(true);
-  //     }
-      
-  //     const AsyncResolveFalse = function(context) {
-  //       return Promise.resolve(false);
-  //     }
-
-  //     const AsyncReject = function(context) {
-  //       return Promise.reject(new Error('Throws'));
-  //     }
-      
-  //     describe('and async test resolves with true', () => {
-
-  //       it('should return true', 
-  //         async function() {
-
-  //           const auth = new Auth(
-  //               [
-  //                 Role(
-  //                   'parent',
-  //                   {
-  //                     caps: [
-  //                       AsyncCap(
-  //                         'create',
-  //                         {
-  //                           test: AsyncResolveTrue
-  //                         }
-  //                       )
-  //                     ]
-  //                   }
-  //                 )
-  //               ]      
-  //             );
-
-  //             expect(await auth.can('parent', 'create')).to.be.true;
-
-  //         }
-  //       );
-
-  //     });
-
-  //     describe('and async test resolves with false', () => {
-
-  //       it('should return false',
-  //         async function() {
-
-  //           const auth = new Auth(
-  //               [
-  //                 Role(
-  //                   'parent',
-  //                   {
-  //                     caps: [
-  //                       AsyncCap(
-  //                         'create',
-  //                         {
-  //                           test: AsyncResolveFalse
-  //                         }
-  //                       )
-  //                     ]
-  //                   }
-  //                 )
-  //               ]      
-  //             );
-
-  //             expect(await auth.can('parent', 'create')).to.be.false;
-
-  //         }
-  //       );
-
-  //     });
-
-  //     describe('and async test rejects', () => {
-
-  //       it('should throw the error',
-  //         async function() {
-
-  //           const auth = new Auth(
-  //               [
-  //                 Role(
-  //                   'parent',
-  //                   {
-  //                     caps: [
-  //                       AsyncCap(
-  //                         'create',
-  //                         {
-  //                           test: AsyncReject
-  //                         }
-  //                       )
-  //                     ]
-  //                   }
-  //                 )
-  //               ]      
-  //             );
-
-  //             return expect(
-  //               auth.can('parent', 'create')
-  //             ).to.be.rejectedWith(/Throws/);
-
-  //         }
-  //       );
-
-  //     });
-
-  //   });
-
-  //   describe('when role is not found', () => {
-
-  //     it('should reject with RoleNotFound error.', () => {
-
-  //       const auth = new Auth(
-  //         [
-  //           Role(
-  //             'parent',
-  //             {
-  //               caps: [
-  //                 BasicCap(
-  //                   'create'
-  //                 )
-  //               ]
-  //             }
-  //           )
-  //         ]      
-  //       );
-
-  //       return expect(
-  //         auth.can('badrole', 'create')
-  //       ).to.be.rejectedWith(/Role badrole could not be found/)
-
-  //     });
-
-  //   });
+    });
 
   });
 
