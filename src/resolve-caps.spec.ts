@@ -15,12 +15,12 @@ describe('ResolveCaps', () => {
       it('should return false', 
         async () => {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent'
           );
 
           return expect(
-            ResolveCaps(RootRoleObject, ['grandparuuent', 'somebadpath'], 'makepizza')
+            ResolveCaps(RoleObject, ['grandparuuent', 'somebadpath'], 'makepizza')
           ).to.be.rejectedWith(/Role grandparuuent could not be found/);
 
       });
@@ -32,12 +32,12 @@ describe('ResolveCaps', () => {
       it('should return false', 
         async () => {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent'
           );
 
           return expect(
-            ResolveCaps(RootRoleObject, [], 'makepizza')
+            ResolveCaps(RoleObject, [], 'makepizza')
           ).to.be.rejectedWith(/No role path provided/);
 
       });
@@ -49,7 +49,7 @@ describe('ResolveCaps', () => {
       it('should return false', 
         async () => {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent',
             {
               children: [
@@ -59,7 +59,7 @@ describe('ResolveCaps', () => {
           );
 
           return expect(
-            ResolveCaps(RootRoleObject, ['grandparent', 'somebadpath'], 'makepizza')
+            ResolveCaps(RoleObject, ['grandparent', 'somebadpath'], 'makepizza')
           ).to.be.rejectedWith(/Role somebadpath could not be found/);
 
       });
@@ -76,7 +76,7 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent',
             {
               caps: [
@@ -86,7 +86,7 @@ describe('ResolveCaps', () => {
           );
 
           expect(
-            await ResolveCaps(RootRoleObject, ['grandparent'], 'makegnocchi')
+            await ResolveCaps(RoleObject, ['grandparent'], 'makegnocchi')
           ).to.be.true;
           
         }
@@ -98,7 +98,7 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent',
             {
               caps: [
@@ -108,7 +108,7 @@ describe('ResolveCaps', () => {
           );
 
           expect(
-            await ResolveCaps(RootRoleObject, ['grandparent'], 'makegnocchi')
+            await ResolveCaps(RoleObject, ['grandparent'], 'makegnocchi')
           ).to.be.false;
           
         }
@@ -120,7 +120,7 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent',
             {
               caps: [
@@ -139,7 +139,7 @@ describe('ResolveCaps', () => {
           );
 
           expect(
-            await ResolveCaps(RootRoleObject, ['grandparent', 'aunt'], ['makegnocchi', 'makepizza'])
+            await ResolveCaps(RoleObject, ['grandparent', 'aunt'], ['makegnocchi', 'makepizza'])
           ).to.be.true;
           
         }
@@ -152,7 +152,7 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent',
             {
               caps: [
@@ -171,7 +171,7 @@ describe('ResolveCaps', () => {
           );
 
           expect(
-            await ResolveCaps(RootRoleObject, ['grandparent', 'aunt'], ['makegnocchi', 'makepizza', 'makegold'])
+            await ResolveCaps(RoleObject, ['grandparent', 'aunt'], ['makegnocchi', 'makepizza', 'makegold'])
           ).to.be.false;
           
         }
@@ -184,7 +184,7 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent',
             {
               children: [
@@ -211,7 +211,7 @@ describe('ResolveCaps', () => {
           );
           
           expect(
-            await ResolveCaps(RootRoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: true })
+            await ResolveCaps(RoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: true })
           ).to.be.true;
           
         }
@@ -224,7 +224,7 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent',
             {
               children: [
@@ -251,7 +251,7 @@ describe('ResolveCaps', () => {
           );
           
           expect(
-            await ResolveCaps(RootRoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: false })
+            await ResolveCaps(RoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: false })
           ).to.be.false;
           
         }
@@ -264,7 +264,7 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent',
             {
               children: [
@@ -312,7 +312,7 @@ describe('ResolveCaps', () => {
           );
           
           expect(
-            await ResolveCaps(RootRoleObject, ['grandparent', 'aunt', 'cousin'], ['makelasagna'], { vegetarian: false })
+            await ResolveCaps(RoleObject, ['grandparent', 'aunt', 'cousin'], ['makelasagna'], { vegetarian: false })
           ).to.be.true;
           
         }
@@ -325,7 +325,7 @@ describe('ResolveCaps', () => {
       it('should throw an error',
         async function() {
 
-          const RootRoleObject = new Role(
+          const RoleObject = new Role(
             'grandparent',
             {
               children: [
@@ -350,7 +350,7 @@ describe('ResolveCaps', () => {
           );
           
           return expect(
-            ResolveCaps(RootRoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: false })
+            ResolveCaps(RoleObject, ['grandparent', 'aunt'], ['makelasagna'], { vegetarian: false })
           ).to.be.rejectedWith('Error');
           
         }
