@@ -1,13 +1,8 @@
-import * as chai from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
 
 import { Role } from './role';
 import { ConditionalCap } from './conditional-cap';
 import { HasCap } from './has-cap';
-
-chai.use(chaiAsPromised);
-
-let expect = chai.expect;
+import { expect } from './utils/test';
 
 describe('Role', () => {
 

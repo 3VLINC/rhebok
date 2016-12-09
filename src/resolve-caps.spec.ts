@@ -1,15 +1,10 @@
-import * as chai from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
+import { expect } from './utils/test';
 
 import { Role } from './role';
 import { ResolveCaps } from './resolve-caps';
 import { ConditionalCap } from './conditional-cap';
 import { HasCap } from './has-cap';
 import { InvalidPathError } from './errors';
-
-chai.use(chaiAsPromised);
-
-let expect = chai.expect;
 
 describe('ResolveCaps', () => {
 
