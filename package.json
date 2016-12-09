@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "description": "Easy to use hierarchical role based access control (RBAC) with support for asynchronous authorization.",
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "typings": "./dist/index",
   "repository": "https://github.com/3VLINC/rhebok",
   "scripts": {
     "pretest": "npm run build",
     "test": "mocha \"dist/**/*.spec.js\"",
+    "publish": "npm run build",
     "build": "rimraf dist/* && tsc",
     "dev": "tsc -w"
   },

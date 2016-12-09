@@ -1,3 +1,7 @@
 /dist
 node_modules
+<<<<<<< HEAD
 .vscode
+=======
+.vscode
+>>>>>>> release/0.1.0
