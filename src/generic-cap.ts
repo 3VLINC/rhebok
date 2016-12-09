@@ -10,6 +10,6 @@ export abstract class GenericCapObj {
     
   }
 
-  public abstract async test(context?: any): Promise<Boolean>;
+  public abstract async test(context?: any): Promise<boolean>;
 
 }

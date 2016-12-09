@@ -2,9 +2,10 @@ import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 
 import { Role } from './role';
-import { ResolveCaps, InvalidPathError } from './resolve-caps';
+import { ResolveCaps } from './resolve-caps';
 import { AsyncCap } from './async-cap';
 import { BasicCap } from './basic-cap';
+import { InvalidPathError } from './errors';
 
 chai.use(chaiAsPromised);
 

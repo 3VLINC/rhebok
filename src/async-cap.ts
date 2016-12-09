@@ -1,7 +1,7 @@
 import { GenericCapObj } from './generic-cap';
 
 export interface AsyncCapObjParams {
-  test: (context: any) => Promise<Boolean>;
+  test: (context: any) => Promise<boolean>;
 };
 
 export class AsyncCapObj extends GenericCapObj {
