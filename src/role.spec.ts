@@ -2,8 +2,8 @@ import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 
 import { Role } from './role';
-import { AsyncCap } from './async-cap';
-import { BasicCap } from './basic-cap';
+import { ConditionalCap } from './conditional-cap';
+import { HasCap } from './has-cap';
 
 chai.use(chaiAsPromised);
 
@@ -19,11 +19,11 @@ describe('Role', () => {
         async function() {
 
           const RootRoleObj = 
-            Role(
+            new Role(
               'test',
               {
                 caps: [
-                  BasicCap('create')
+                  new HasCap('create')
                 ]
               }
             );
@@ -40,11 +40,11 @@ describe('Role', () => {
       it('should return false',
         async function() {
 
-          const auth = Role(
+          const auth = new Role(
             'test',
             {
               caps: [
-                BasicCap('create')
+                new HasCap('create')
               ]
             }
           );
@@ -64,17 +64,17 @@ describe('Role', () => {
     
       it('should return three children', () => {
 
-        const role = Role(
+        const role = new Role(
           'testrole',
           {
             children: [
-              Role(
+              new Role(
                 'one'
               ),
-              Role(
+              new Role(
                 'two'
               ),
-              Role(
+              new Role(
                 'three'
               )
             ]
@@ -93,13 +93,13 @@ describe('Role', () => {
 
         let role;
         
-        role = Role(
+        role = new Role(
           'testrole'
         );
 
         expect(role.getChildren().length).to.eql(0);
         
-        role = Role(
+        role = new Role(
           'testrole',
           {
             children: [

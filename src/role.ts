@@ -1,25 +1,19 @@
 import { isArray, find, sortedUniq, cloneDeep, filter } from 'lodash';
 import { GetPathToRole } from './get-path-to-role';
 import { ResolveCaps } from './resolve-caps';
-import { GenericCapObj } from './generic-cap';
+import { Cap } from './cap';
 
-export interface RoleObjParams {
-  caps?: GenericCapObj[];
+export type RoleParams = {
+  caps?: Cap[];
   inherits?: string;
-  children?: RoleObj[];
+  children?: Role[];
 };
 
-export function Role (name: string, params?: RoleObjParams) {
-
-  return new RoleObj(name, params);
-   
-}
-
-export class RoleObj {
+export class Role {
 
   constructor(
     private name: string,
-    private params: RoleObjParams = {}
+    private params: RoleParams = {}
   ) {
 
   }

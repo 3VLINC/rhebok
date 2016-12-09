@@ -1,4 +1,5 @@
-export { Role, RoleObj } from './role';
-export { AsyncCap, AsyncCapObj } from './async-cap';
-export { BasicCap, BasicCapObj } from './basic-cap';
+export { Role } from './role';
+export { ConditionalCap } from './conditional-cap';
+export { HasCap } from './has-cap';
+export { Cap } from './cap';
 export { NoRolePathError, InvalidPathError } from './errors';

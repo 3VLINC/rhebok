@@ -1,4 +1,4 @@
-export abstract class GenericCapObj {
+export abstract class Cap {
 
   constructor(private name: string ) {
 
@@ -10,6 +10,6 @@ export abstract class GenericCapObj {
     
   }
 
-  public abstract async test(context?: any): Promise<boolean>;
+  public abstract check(context?: any): Promise<boolean>;
 
 }

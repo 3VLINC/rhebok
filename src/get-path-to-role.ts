@@ -1,18 +1,18 @@
-import { RoleObj } from './role';
+import { Role } from './role';
 
-export const GetPathToRole = (roleObj: RoleObj, roleName: string, rolePath: string[] = []) => {
+export const GetPathToRole = (role: Role, roleName: string, rolePath: string[] = []) => {
 
-    if (roleObj.getName() === roleName) {
+    if (role.getName() === roleName) {
 
-      rolePath.push(roleObj.getName());
+      rolePath.push(role.getName());
 
       return true;
 
     } else {
 
-      rolePath.push(roleObj.getName());
+      rolePath.push(role.getName());
 
-      for(let child of roleObj.getChildren()) {
+      for(let child of role.getChildren()) {
         
         if(GetPathToRole(child, roleName, rolePath)) {
 
