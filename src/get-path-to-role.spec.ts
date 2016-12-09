@@ -2,8 +2,8 @@ import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 
 import { Role } from './role';
-import { AsyncCap } from './async-cap';
-import { BasicCap } from './basic-cap';
+import { ConditionalCap } from './conditional-cap';
+import { HasCap } from './has-cap';
 import { GetPathToRole } from './get-path-to-role';
 
 chai.use(chaiAsPromised);
@@ -37,21 +37,21 @@ describe('GetPathToRole', () => {
           'parent',
           {
             caps: [
-              new BasicCap('create')
+              new HasCap('create')
             ],
             children: [
               new Role(
                 'me',
                 {
                   caps: [
-                    new BasicCap('update')
+                    new HasCap('update')
                   ],
                   children: [
                     new Role(
                       'my child',
                       {
                         caps: [
-                          new BasicCap('modify')
+                          new HasCap('modify')
                         ]
                       }
                     )

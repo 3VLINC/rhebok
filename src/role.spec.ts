@@ -2,8 +2,8 @@ import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 
 import { Role } from './role';
-import { AsyncCap } from './async-cap';
-import { BasicCap } from './basic-cap';
+import { ConditionalCap } from './conditional-cap';
+import { HasCap } from './has-cap';
 
 chai.use(chaiAsPromised);
 
@@ -23,7 +23,7 @@ describe('Role', () => {
               'test',
               {
                 caps: [
-                  new BasicCap('create')
+                  new HasCap('create')
                 ]
               }
             );
@@ -44,7 +44,7 @@ describe('Role', () => {
             'test',
             {
               caps: [
-                new BasicCap('create')
+                new HasCap('create')
               ]
             }
           );

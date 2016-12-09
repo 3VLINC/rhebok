@@ -4,7 +4,7 @@ export type BasicCapParams = {
 
 };
 
-export class BasicCap extends Cap {
+export class HasCap extends Cap {
   
   constructor(
     name: string,
@@ -15,9 +15,9 @@ export class BasicCap extends Cap {
 
   }
 
-  public async test() {
-
-    return true;
+  public check(context?: any) {
+    
+    return Promise.resolve(true);
 
   }
 

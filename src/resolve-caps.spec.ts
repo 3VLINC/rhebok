@@ -3,8 +3,8 @@ import * as chaiAsPromised from 'chai-as-promised';
 
 import { Role } from './role';
 import { ResolveCaps } from './resolve-caps';
-import { AsyncCap } from './async-cap';
-import { BasicCap } from './basic-cap';
+import { ConditionalCap } from './conditional-cap';
+import { HasCap } from './has-cap';
 import { InvalidPathError } from './errors';
 
 chai.use(chaiAsPromised);
@@ -85,7 +85,7 @@ describe('ResolveCaps', () => {
             'grandparent',
             {
               caps: [
-                new BasicCap('makegnocchi')
+                new HasCap('makegnocchi')
               ]
             }
           );
@@ -107,7 +107,7 @@ describe('ResolveCaps', () => {
             'grandparent',
             {
               caps: [
-                new BasicCap('makelasagna')
+                new HasCap('makelasagna')
               ]
             }
           );
@@ -129,13 +129,13 @@ describe('ResolveCaps', () => {
             'grandparent',
             {
               caps: [
-                new BasicCap('makepizza')
+                new HasCap('makepizza')
               ],
               children: [
                 new Role('aunt',
                   {
                     caps: [
-                      new BasicCap('makegnocchi')
+                      new HasCap('makegnocchi')
                     ]
                   }
                 )
@@ -161,13 +161,13 @@ describe('ResolveCaps', () => {
             'grandparent',
             {
               caps: [
-                new BasicCap('makepizza')
+                new HasCap('makepizza')
               ],
               children: [
                 new Role('aunt',
                   {
                     caps: [
-                      new BasicCap('makegnocchi')
+                      new HasCap('makegnocchi')
                     ]
                   }
                 )
@@ -196,10 +196,10 @@ describe('ResolveCaps', () => {
                 new Role('aunt',
                   {
                     caps: [
-                      new AsyncCap(
+                      new ConditionalCap(
                       'makelasagna',
                       {
-                        test: async (context) => {
+                        if: async (context) => {
                           
                           const result = await Promise.resolve(context.vegetarian === true);
                           
@@ -236,10 +236,10 @@ describe('ResolveCaps', () => {
                 new Role('aunt',
                   {
                     caps: [
-                      new AsyncCap(
+                      new ConditionalCap(
                       'makelasagna',
                       {
-                        test: async (context) => {
+                        if: async (context) => {
                           
                           const result = await Promise.resolve(context.vegetarian === true);
                           
@@ -276,10 +276,10 @@ describe('ResolveCaps', () => {
                 new Role('aunt',
                   {
                     caps: [
-                      new AsyncCap(
+                      new ConditionalCap(
                         'makelasagna',
                         {
-                          test: async (context) => {
+                          if: async (context) => {
                             
                             const result = await Promise.resolve(context.vegetarian === true);
                             
@@ -294,10 +294,10 @@ describe('ResolveCaps', () => {
                         'cousin',
                         {
                           caps: [
-                            new AsyncCap(
+                            new ConditionalCap(
                               'makelasagna',
                               {
-                                test: async (context) => {
+                                if: async (context) => {
                                   console.log(context);
                                   const result = await Promise.resolve(context.vegetarian === false);
                                   
@@ -337,10 +337,10 @@ describe('ResolveCaps', () => {
                 new Role('aunt',
                   {
                     caps: [
-                      new AsyncCap(
+                      new ConditionalCap(
                       'makelasagna',
                       {
-                        test: async (context) => {
+                        if: async (context) => {
                           
                           throw new Error('Error');
 

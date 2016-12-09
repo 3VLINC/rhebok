@@ -10,6 +10,6 @@ export abstract class Cap {
     
   }
 
-  public abstract async test(context?: any): Promise<boolean>;
+  public abstract check(context?: any): Promise<boolean>;
 
 }
