@@ -1,7 +1,7 @@
-import { expect } from './utils/test';
-import { Role } from './role';
-import { ConditionalCap } from './conditional-cap';
-import { HasCap } from './has-cap';
+import { expect } from '../../utils/test';
+import { Role } from '../role';
+import { ConditionalCap } from '../../caps/conditional-cap';
+import { HasCap } from '../../caps/has-cap';
 import { GetPathToRole } from './get-path-to-role';
 
 describe('GetPathToRole', () => {

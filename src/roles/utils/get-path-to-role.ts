@@ -1,4 +1,4 @@
-import { Role } from './role';
+import { Role } from '../role';
 
 export const GetPathToRole = (role: Role, roleName: string, rolePath: string[] = []) => {
 

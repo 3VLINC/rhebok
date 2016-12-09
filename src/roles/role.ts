@@ -1,7 +1,7 @@
 import { isArray, find, sortedUniq, cloneDeep, filter } from 'lodash';
-import { GetPathToRole } from './get-path-to-role';
-import { ResolveCaps } from './resolve-caps';
-import { Cap } from './cap';
+import { GetPathToRole } from './utils/get-path-to-role';
+import { ResolveCaps } from './utils/resolve-caps';
+import { Cap } from '../caps/cap';
 
 export type RoleParams = {
   caps?: Cap[];

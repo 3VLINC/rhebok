@@ -1,6 +1,6 @@
 import { isArray, intersection, find, filter } from 'lodash';
 
-import { Role } from './role';
+import { Role } from '../role';
 import { InvalidPathError, NoRolePathError } from './errors';
 
 export const ResolveCaps = async (role: Role, rolePath: string[], capsLeftToCheck: string | string[] = [], context?: any) => {

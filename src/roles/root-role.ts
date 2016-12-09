@@ -1,5 +1,5 @@
 import { Role, RoleParams } from './role';
-import { ValidateRole } from './validate-role';
+import { ValidateRole } from './utils/validate-role';
 
 export class RootRole extends Role {
 
