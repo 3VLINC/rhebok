@@ -1,18 +1,12 @@
-import * as chai from 'chai';
-import * as chaiAsPromised from 'chai-as-promised';
-
+import { expect } from './utils/test';
 import { Role } from './role';
 import { ConditionalCap } from './conditional-cap';
 import { HasCap } from './has-cap';
 import { GetPathToRole } from './get-path-to-role';
 
-chai.use(chaiAsPromised);
-
-let expect = chai.expect;
-
 describe('GetPathToRole', () => {
 
-  const RootRoleObject = new Role(
+  const RoleObject = new Role(
     'grandparent',
     {
       children: [
@@ -86,43 +80,43 @@ describe('GetPathToRole', () => {
 
     let rolePath = [];
 
-    GetPathToRole(RootRoleObject, 'grandparent', rolePath);
+    GetPathToRole(RoleObject, 'grandparent', rolePath);
 
     expect(rolePath).to.eql(['grandparent']);
 
     rolePath = [];
 
-    GetPathToRole(RootRoleObject, 'parent', rolePath)
+    GetPathToRole(RoleObject, 'parent', rolePath)
 
     expect(rolePath).to.eql(['grandparent', 'parent']);
 
     rolePath = [];
     
-    GetPathToRole(RootRoleObject, 'me', rolePath)
+    GetPathToRole(RoleObject, 'me', rolePath)
 
     expect(rolePath).to.eql(['grandparent', 'parent', 'me']);
     
     rolePath = [];
 
-    GetPathToRole(RootRoleObject, 'my child', rolePath)
+    GetPathToRole(RoleObject, 'my child', rolePath)
 
     expect(rolePath).to.eql(['grandparent', 'parent', 'me', 'my child']);
 
     rolePath = [];
     
-    GetPathToRole(RootRoleObject, 'aunts sons son', rolePath)
+    GetPathToRole(RoleObject, 'aunts sons son', rolePath)
 
     expect(rolePath).to.eql(['grandparent', 'aunt', 'aunts son', 'aunts sons son']);
 
     rolePath = [];
 
-    GetPathToRole(RootRoleObject, 'uncles daughters daughter', rolePath)
+    GetPathToRole(RoleObject, 'uncles daughters daughter', rolePath)
 
     expect(rolePath).to.eql(['grandparent', 'uncle', 'uncles daughter', 'uncles daughters daughter']);
 
     rolePath = [];
     
-    GetPathToRole(RootRoleObject, 'not found', rolePath)
+    GetPathToRole(RoleObject, 'not found', rolePath)
 
     expect(rolePath).to.eql([]);
 

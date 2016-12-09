@@ -16,3 +16,12 @@ export class NoRolePathError extends Error {
   }
 
 }
+
+export class DuplicateRoleNameError extends Error {
+
+  constructor(roleName: string) {
+
+    super(`Role Names must be unique, but found duplicate role name: ${roleName}`);
+
+  }
+}
