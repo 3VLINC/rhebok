@@ -12,19 +12,19 @@ let expect = chai.expect;
 
 describe('GetPathToRole', () => {
 
-  const RootRoleObject = Role(
+  const RootRoleObject = new Role(
     'grandparent',
     {
       children: [
-        Role(
+        new Role(
           'aunt',
           {
             children: [
-              Role(
+              new Role(
                 'aunts son',
                 {
                   children: [
-                    Role(
+                    new Role(
                       'aunts sons son'
                     )
                   ]
@@ -33,25 +33,25 @@ describe('GetPathToRole', () => {
             ]
           }
         ),
-        Role(
+        new Role(
           'parent',
           {
             caps: [
-              BasicCap('create')
+              new BasicCap('create')
             ],
             children: [
-              Role(
+              new Role(
                 'me',
                 {
                   caps: [
-                    BasicCap('update')
+                    new BasicCap('update')
                   ],
                   children: [
-                    Role(
+                    new Role(
                       'my child',
                       {
                         caps: [
-                          BasicCap('modify')
+                          new BasicCap('modify')
                         ]
                       }
                     )
@@ -61,15 +61,15 @@ describe('GetPathToRole', () => {
             ]
           }
         ),
-         Role(
+         new Role(
           'uncle',
           {
             children: [
-              Role(
+              new Role(
                 'uncles daughter',
                 {
                   children: [
-                    Role(
+                    new Role(
                       'uncles daughters daughter'
                     )
                   ]

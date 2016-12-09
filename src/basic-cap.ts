@@ -1,20 +1,14 @@
-import { GenericCapObj } from './generic-cap';
+import { Cap } from './cap';
 
-export interface BasicCapObjParams {
+export type BasicCapParams = {
 
 };
 
-export function BasicCap(name: string, params?:BasicCapObjParams) {
-  
-  return new BasicCapObj(name, params);
-
-}
-
-export class BasicCapObj extends GenericCapObj {
+export class BasicCap extends Cap {
   
   constructor(
     name: string,
-    private params?:BasicCapObjParams
+    private params?:BasicCapParams
   ) {
     
     super( name );

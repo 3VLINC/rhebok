@@ -1,14 +1,14 @@
-import { GenericCapObj } from './generic-cap';
+import { Cap } from './cap';
 
-export interface AsyncCapObjParams {
+export type AsyncCapParams = {
   test: (context: any) => Promise<boolean>;
 };
 
-export class AsyncCapObj extends GenericCapObj {
+export class AsyncCap extends Cap {
 
   constructor(
     name: string,
-    private params: AsyncCapObjParams
+    private params: AsyncCapParams
   ) { 
     
     super( name );
@@ -20,11 +20,5 @@ export class AsyncCapObj extends GenericCapObj {
     return await this.params.test(context);
 
   }
-
-}
-
-export function AsyncCap(name:string, params: AsyncCapObjParams) {
-
-  return new AsyncCapObj(name, params);
 
 }

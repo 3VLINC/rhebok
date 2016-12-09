@@ -1,4 +1,4 @@
-export abstract class GenericCapObj {
+export abstract class Cap {
 
   constructor(private name: string ) {
 

@@ -20,7 +20,7 @@ describe('ResolveCaps', () => {
       it('should return false', 
         async () => {
 
-          const RootRoleObject = Role(
+          const RootRoleObject = new Role(
             'grandparent'
           );
 
@@ -37,7 +37,7 @@ describe('ResolveCaps', () => {
       it('should return false', 
         async () => {
 
-          const RootRoleObject = Role(
+          const RootRoleObject = new Role(
             'grandparent'
           );
 
@@ -54,11 +54,11 @@ describe('ResolveCaps', () => {
       it('should return false', 
         async () => {
 
-          const RootRoleObject = Role(
+          const RootRoleObject = new Role(
             'grandparent',
             {
               children: [
-                Role('validpath')
+                new Role('validpath')
               ]
             }
           );
@@ -81,11 +81,11 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = Role(
+          const RootRoleObject = new Role(
             'grandparent',
             {
               caps: [
-                BasicCap('makegnocchi')
+                new BasicCap('makegnocchi')
               ]
             }
           );
@@ -103,11 +103,11 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = Role(
+          const RootRoleObject = new Role(
             'grandparent',
             {
               caps: [
-                BasicCap('makelasagna')
+                new BasicCap('makelasagna')
               ]
             }
           );
@@ -125,17 +125,17 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = Role(
+          const RootRoleObject = new Role(
             'grandparent',
             {
               caps: [
-                BasicCap('makepizza')
+                new BasicCap('makepizza')
               ],
               children: [
-                Role('aunt',
+                new Role('aunt',
                   {
                     caps: [
-                      BasicCap('makegnocchi')
+                      new BasicCap('makegnocchi')
                     ]
                   }
                 )
@@ -157,17 +157,17 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = Role(
+          const RootRoleObject = new Role(
             'grandparent',
             {
               caps: [
-                BasicCap('makepizza')
+                new BasicCap('makepizza')
               ],
               children: [
-                Role('aunt',
+                new Role('aunt',
                   {
                     caps: [
-                      BasicCap('makegnocchi')
+                      new BasicCap('makegnocchi')
                     ]
                   }
                 )
@@ -189,14 +189,14 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = Role(
+          const RootRoleObject = new Role(
             'grandparent',
             {
               children: [
-                Role('aunt',
+                new Role('aunt',
                   {
                     caps: [
-                      AsyncCap(
+                      new AsyncCap(
                       'makelasagna',
                       {
                         test: async (context) => {
@@ -229,14 +229,14 @@ describe('ResolveCaps', () => {
       it('should return true',
         async function() {
 
-          const RootRoleObject = Role(
+          const RootRoleObject = new Role(
             'grandparent',
             {
               children: [
-                Role('aunt',
+                new Role('aunt',
                   {
                     caps: [
-                      AsyncCap(
+                      new AsyncCap(
                       'makelasagna',
                       {
                         test: async (context) => {
@@ -264,19 +264,80 @@ describe('ResolveCaps', () => {
   
     });
 
+    describe('and async cap is resolved with false on parent cap check but resolves with true on a child cap check', () => {
+
+      it('should return true',
+        async function() {
+
+          const RootRoleObject = new Role(
+            'grandparent',
+            {
+              children: [
+                new Role('aunt',
+                  {
+                    caps: [
+                      new AsyncCap(
+                        'makelasagna',
+                        {
+                          test: async (context) => {
+                            
+                            const result = await Promise.resolve(context.vegetarian === true);
+                            
+                            return result;
+
+                          } 
+                        }
+                      )
+                    ],
+                    children: [
+                      new Role(
+                        'cousin',
+                        {
+                          caps: [
+                            new AsyncCap(
+                              'makelasagna',
+                              {
+                                test: async (context) => {
+                                  console.log(context);
+                                  const result = await Promise.resolve(context.vegetarian === false);
+                                  
+                                  return result;
+
+                                }
+                              }
+                            )
+                          ]
+                        }
+                      )
+                    ]
+                  }
+                )
+              ]              
+            }
+          );
+          
+          expect(
+            await ResolveCaps(RootRoleObject, ['grandparent', 'aunt', 'cousin'], ['makelasagna'], { vegetarian: false })
+          ).to.be.true;
+          
+        }
+      );
+  
+    });
+
     describe('and async cap is present and throws', () => {
 
       it('should throw an error',
         async function() {
 
-          const RootRoleObject = Role(
+          const RootRoleObject = new Role(
             'grandparent',
             {
               children: [
-                Role('aunt',
+                new Role('aunt',
                   {
                     caps: [
-                      AsyncCap(
+                      new AsyncCap(
                       'makelasagna',
                       {
                         test: async (context) => {
