@@ -6,17 +6,8 @@ import { ConditionalCap } from '../../caps/conditional-cap';
 import { SubRoleCap } from '../../caps/sub-role-cap';
 
 import { Cap } from '../../caps/cap';
-import { InvalidPathError, NoRolePathError } from './errors';
-
-class MockCap extends Cap {
-
-  async check() {
-    
-    return true;
-
-  }
-
-}
+import { InvalidPathError } from './errors';
+import { MockCap } from '../../utils/mock-cap';
 
 describe('ResolveCaps', () => {
 
@@ -64,7 +55,7 @@ describe('ResolveCaps', () => {
 
           return expect(
             ResolveCaps(RoleObject, [], 'makepizza')
-          ).to.be.rejectedWith(NoRolePathError);
+          ).to.be.rejectedWith(InvalidPathError);
 
       });
 
