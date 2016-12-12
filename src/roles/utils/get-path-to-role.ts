@@ -1,4 +1,5 @@
 import { Role } from '../role';
+import { cloneDeep } from 'lodash';
 
 export const GetPathToRole = (role: Role, roleName: string, rolePath: string[] = []) => {
 
@@ -6,7 +7,7 @@ export const GetPathToRole = (role: Role, roleName: string, rolePath: string[] =
 
       rolePath.push(role.getName());
 
-      return true;
+      return rolePath;
 
     } else {
 
@@ -14,9 +15,13 @@ export const GetPathToRole = (role: Role, roleName: string, rolePath: string[] =
 
       for(let child of role.getChildren()) {
         
-        if(GetPathToRole(child, roleName, rolePath)) {
+        const oldRolePath = cloneDeep(rolePath);
 
-          return true;
+        const newRolePath = GetPathToRole(child, roleName, rolePath);
+
+        if(oldRolePath.length !== newRolePath.length) {
+
+          return rolePath;
 
         } 
 
@@ -26,6 +31,6 @@ export const GetPathToRole = (role: Role, roleName: string, rolePath: string[] =
 
     }
 
-    return false;
+    return rolePath;
 
   }

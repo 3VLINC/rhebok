@@ -44,11 +44,7 @@ export class Role {
 
   async can(roleName:string, capabilities: string | string[], context?: any) {
 
-    const rolePath = [];
-
-    GetPathToRole(this, roleName, rolePath);
-
-    return await ResolveCaps(this, rolePath, capabilities, context);
+    return await ResolveCaps(this, GetPathToRole(this, roleName), capabilities, context);
 
   }
 
