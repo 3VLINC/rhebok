@@ -1,4 +1,4 @@
-import { Role } from './role';
+import { Role } from '../role';
 import { DuplicateRoleNameError } from './errors';
 
 export const ValidateRole = (role: Role, roleNames: string[] = []) => {

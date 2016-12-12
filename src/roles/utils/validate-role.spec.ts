@@ -1,9 +1,8 @@
-import { Role } from './role';
+import { Role } from '../role';
 import { ValidateRole } from './validate-role';
-import { ConditionalCap } from './conditional-cap';
-import { HasCap } from './has-cap';
+import { ConditionalCap } from '../../caps/conditional-cap';
 import { DuplicateRoleNameError } from './errors';
-import { expect } from './utils/test';
+import { expect } from '../../utils/test';
 
 describe('ValidateRole', () => {
 

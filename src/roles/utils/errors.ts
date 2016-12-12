@@ -7,16 +7,6 @@ export class InvalidPathError extends Error {
   }
 }
 
-export class NoRolePathError extends Error {
-
-  constructor() {
-
-    super(`No role path provided`);
-
-  }
-
-}
-
 export class DuplicateRoleNameError extends Error {
 
   constructor(roleName: string) {

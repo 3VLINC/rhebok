@@ -1,7 +1,7 @@
-import { expect } from './utils/test';
+import { expect } from '../utils/test';
 import { RootRole } from './root-role';
 import { Role } from './role';
-import { DuplicateRoleNameError } from './errors';
+import { DuplicateRoleNameError } from './utils/errors';
 
 describe('RootRole', () => {
 
