@@ -50,7 +50,7 @@ export class Role {
   }
 
   validate(roleNames: string[] = []) {
-    console.log(this);
+
     if (-1 !== roleNames.indexOf(this.getName())) {
 
       throw new DuplicateRoleNameError(this.getName())
