@@ -5,6 +5,9 @@
   "main": "./dist/index.js",
   "typings": "./dist/index",
   "repository": "https://github.com/3VLINC/rhebok",
+  "enginesStrict": {
+    "node": ">=6.0.0"
+  },
   "scripts": {
     "pretest": "npm run build",
     "test": "mocha \"dist/**/*.spec.js\"",
