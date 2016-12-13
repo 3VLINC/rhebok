@@ -2,3 +2,4 @@ wallaby.config.js
 tsconfig.json
 src
 .vscode
+.travis.json
