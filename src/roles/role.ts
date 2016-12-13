@@ -6,7 +6,6 @@ import { DuplicateRoleNameError } from './utils/errors';
 
 export type RoleParams = {
   caps?: Cap[];
-  inherits?: string;
   children?: Role[];
 };
 
