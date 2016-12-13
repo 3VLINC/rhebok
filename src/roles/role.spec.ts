@@ -2,6 +2,7 @@ import { Role } from './role';
 import { ConditionalCap } from '../caps/conditional-cap';
 import { HasCap } from '../caps/has-cap';
 import { expect } from '../utils/test';
+import { DuplicateRoleNameError } from './utils/errors';
 
 describe('Role', () => {
 
@@ -52,7 +53,7 @@ describe('Role', () => {
 
   });
 
-  describe('get children', () => {
+  describe('getChildren', () => {
 
     describe('when role has 3 children', () => {
     
@@ -103,6 +104,107 @@ describe('Role', () => {
         );
 
         expect(role.getChildren().length).to.eql(0);
+
+      });
+
+    });
+
+  });
+
+  describe('validate', () => {
+
+    describe('when a role name is used only once', () => {
+
+      it('should return true', () => {
+
+        const role = new Role('a',
+            {
+              children: [
+                new Role('b',
+                {
+                  children: [
+                    new Role('d')
+                  ]
+                }),
+                new Role('c', {
+                  children: [
+                    new Role('e')
+                  ]
+                })
+              ]
+            }
+          );
+
+          expect(() => role.validate()).not.to.throw();
+
+      });
+
+    });
+
+    describe('when a role name is used more than once', () => {
+
+      describe('when nested roles have the same name', () => {
+
+        it('should throw an error', () => {
+
+          const role = new Role('a',
+            {
+              children: [
+                new Role('a')
+              ]
+            }
+          );
+
+          expect(() => role.validate()).to.throw(DuplicateRoleNameError);
+
+        });
+
+      });
+
+      describe('when sibling roles have the same name', () => {
+
+        it('should throw an error', () => {
+
+          const role = new Role('a',
+            {
+              children: [
+                new Role('b'),
+                new Role('b')
+              ]
+            }
+          );
+
+          expect(() => role.validate()).to.throw(DuplicateRoleNameError);
+
+        });
+
+      });
+
+      describe('when roles in separate hierarchies have the same name', () => {
+
+        it('should throw an error', () => {
+
+          const role = new Role('a',
+            {
+              children: [
+                new Role('b',
+                {
+                  children: [
+                    new Role('d')
+                  ]
+                }),
+                new Role('c', {
+                  children: [
+                    new Role('d')
+                  ]
+                })
+              ]
+            }
+          );
+
+          expect(() => role.validate()).to.throw(DuplicateRoleNameError);
+
+        });
 
       });
 
