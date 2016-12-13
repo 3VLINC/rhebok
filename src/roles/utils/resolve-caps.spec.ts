@@ -2,10 +2,6 @@ import { expect, sinon } from '../../utils/test';
 
 import { Role } from '../role';
 import { ResolveCaps } from './resolve-caps';
-import { ConditionalCap } from '../../caps/conditional-cap';
-import { SubRoleCap } from '../../caps/sub-role-cap';
-
-import { Cap } from '../../caps/cap';
 import { InvalidPathError } from './errors';
 import { MockCap } from '../../utils/mock-cap';
 
