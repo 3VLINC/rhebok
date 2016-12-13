@@ -2,6 +2,15 @@
   "name": "rhebok",
   "version": "0.1.0",
   "description": "Easy to use hierarchical role based access control (RBAC) with support for asynchronous authorization.",
+  "keywords": [
+    "rbac",
+    "role based access control",
+    "asynchronous",
+    "typescript",
+    "authorization",
+    "async",
+    "hierarchical"
+  ],
   "main": "./dist/index.js",
   "typings": "./dist/index",
   "repository": "https://github.com/3VLINC/rhebok",
