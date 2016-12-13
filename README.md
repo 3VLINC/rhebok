@@ -13,6 +13,9 @@ This module is in beta. The API could change prior to 1.0 release.
 npm install rhebok
 ```
 
+## Sample Code
+Code samples demonstrating the usage of this module are [available here](https://github.com/3VLINC/rhebok-samples).
+
 ## Objects
 
 ### Role
