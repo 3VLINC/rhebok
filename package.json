@@ -20,7 +20,7 @@
   "scripts": {
     "pretest": "npm run build",
     "test": "mocha \"dist/**/*.spec.js\"",
-    "publish": "npm run build",
+    "prepublish": "npm test",
     "build": "rimraf dist/* && tsc",
     "dev": "tsc -w"
   },
