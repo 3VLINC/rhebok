@@ -1,6 +1,5 @@
 import { expect } from '../../utils/test';
 import { Role } from '../role';
-import { ConditionalCap } from '../../caps/conditional-cap';
 import { HasCap } from '../../caps/has-cap';
 import { GetPathToRole } from './get-path-to-role';
 
@@ -73,7 +72,7 @@ describe('GetPathToRole', () => {
           }
         ),
       ]
-    }      
+    }
   );
 
   it('should build a tree to the family member', () => {
@@ -86,37 +85,37 @@ describe('GetPathToRole', () => {
 
     rolePath = [];
 
-    GetPathToRole(RoleObject, 'parent', rolePath)
+    GetPathToRole(RoleObject, 'parent', rolePath);
 
     expect(rolePath).to.eql(['grandparent', 'parent']);
 
     rolePath = [];
-    
-    GetPathToRole(RoleObject, 'me', rolePath)
+
+    GetPathToRole(RoleObject, 'me', rolePath);
 
     expect(rolePath).to.eql(['grandparent', 'parent', 'me']);
-    
+
     rolePath = [];
 
-    GetPathToRole(RoleObject, 'my child', rolePath)
+    GetPathToRole(RoleObject, 'my child', rolePath);
 
     expect(rolePath).to.eql(['grandparent', 'parent', 'me', 'my child']);
 
     rolePath = [];
-    
-    GetPathToRole(RoleObject, 'aunts sons son', rolePath)
+
+    GetPathToRole(RoleObject, 'aunts sons son', rolePath);
 
     expect(rolePath).to.eql(['grandparent', 'aunt', 'aunts son', 'aunts sons son']);
 
     rolePath = [];
 
-    GetPathToRole(RoleObject, 'uncles daughters daughter', rolePath)
+    GetPathToRole(RoleObject, 'uncles daughters daughter', rolePath);
 
     expect(rolePath).to.eql(['grandparent', 'uncle', 'uncles daughter', 'uncles daughters daughter']);
 
     rolePath = [];
-    
-    GetPathToRole(RoleObject, 'not found', rolePath)
+
+    GetPathToRole(RoleObject, 'not found', rolePath);
 
     expect(rolePath).to.eql([]);
 

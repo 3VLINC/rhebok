@@ -1,17 +1,21 @@
-import { Cap } from './cap';
+import { ICap } from '../interfaces';
 
 export type AsyncCapParams = {
   if: (context: any) => Promise<boolean>;
 };
 
-export class ConditionalCap extends Cap {
+export class ConditionalCap implements ICap {
 
   constructor(
-    name: string,
+    private name: string,
     private params: AsyncCapParams
-  ) { 
-    
-    super( name );
+  ) {
+
+  }
+
+  getName() {
+
+    return this.name;
 
   }
 

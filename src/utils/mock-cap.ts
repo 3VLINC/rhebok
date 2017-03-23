@@ -1,9 +1,18 @@
-import { Cap } from '../caps/cap';
+import { ICap } from '../interfaces';
 
-export class MockCap extends Cap {
+export class MockCap implements ICap {
+
+  constructor(private name: string) {
+
+  }
+  getName() {
+
+    return this.name;
+
+  }
 
   async check() {
-    
+
     return true;
 
   }

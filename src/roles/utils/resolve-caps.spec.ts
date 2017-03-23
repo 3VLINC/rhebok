@@ -2,8 +2,8 @@ import { expect, sinon } from '../../utils/test';
 
 import { Role } from '../role';
 import { ResolveCaps } from './resolve-caps';
-import { InvalidPathError } from './errors';
 import { MockCap } from '../../utils/mock-cap';
+import { InvalidPathError } from '../../errors';
 
 describe('ResolveCaps', () => {
 
@@ -25,7 +25,7 @@ describe('ResolveCaps', () => {
 
     describe('when root path is bad', () => {
 
-      it('should return false', 
+      it('should return false',
         async () => {
 
           const RoleObject = new Role(
@@ -58,8 +58,8 @@ describe('ResolveCaps', () => {
     });
 
     describe('when a child path does not exist', () => {
-      
-      it('should return false', 
+
+      it('should return false',
         async () => {
 
           const RoleObject = new Role(
@@ -78,14 +78,14 @@ describe('ResolveCaps', () => {
       });
 
     });
-    
+
 
   });
 
   describe('when given a valid path to a role', () => {
 
     describe('and cap is present', () => {
-      
+
       const role = 'grandparent';
       const capName = 'makegnocchi';
       const cap = new MockCap(capName);
@@ -93,9 +93,9 @@ describe('ResolveCaps', () => {
       let roleObj;
 
       beforeEach(() => {
-        
+
         capMock = sandbox.stub(cap, 'check');
-        
+
         roleObj = new Role(
           role,
           {
@@ -108,7 +108,7 @@ describe('ResolveCaps', () => {
       });
 
       describe('and cap resolves with true', () => {
-        
+
         it('should return true',
           async function() {
 
@@ -119,13 +119,13 @@ describe('ResolveCaps', () => {
             expect(capMock.called).to.be.true;
 
             expect(result).to.be.true;
-            
+
           }
         );
       });
 
       describe('and cap resolves with false', () => {
-        
+
         it('should return true',
           async function() {
 
@@ -136,13 +136,13 @@ describe('ResolveCaps', () => {
             expect(capMock.called).to.be.true;
 
             expect(result).to.be.false;
-            
+
           }
         );
       });
 
       describe('and cap rejects', () => {
-        
+
         it('should reject',
           async function() {
 
@@ -150,8 +150,8 @@ describe('ResolveCaps', () => {
 
             return expect(
               ResolveCaps(roleObj, ['grandparent'], 'makegnocchi', {})
-            ).to.be.rejectedWith(Error);           
-            
+            ).to.be.rejectedWith(Error);
+
           }
         );
       });
@@ -179,7 +179,7 @@ describe('ResolveCaps', () => {
           await ResolveCaps(roleObj, ['grandparent'], 'makepizza', {});
 
           expect(capMock.called).to.be.false;
-          
+
         }
       );
 
@@ -198,10 +198,10 @@ describe('ResolveCaps', () => {
       let roleObj;
 
       beforeEach(() => {
-        
+
         capMock1 = sandbox.stub(cap1, 'check');
         capMock2 = sandbox.stub(cap2, 'check');
-        
+
         roleObj = new Role(
           role1,
           {
@@ -237,7 +237,7 @@ describe('ResolveCaps', () => {
             expect(capMock2.called).to.be.true;
 
             expect(result).to.be.true;
-            
+
           }
         );
 
@@ -257,7 +257,7 @@ describe('ResolveCaps', () => {
             expect(capMock2.called).to.be.true;
 
             expect(result).to.be.false;
-            
+
           }
         );
 
@@ -273,11 +273,11 @@ describe('ResolveCaps', () => {
 
             const result = await ResolveCaps(roleObj, [role1, role2], [capName1, capName2], {});
 
-            expect(capMock1.called).to.be.true; 
+            expect(capMock1.called).to.be.true;
             expect(capMock2.called).to.be.true; // it should call this because we want to keep checking if child override works
 
             expect(result).to.be.false;
-            
+
           }
         );
 
@@ -293,11 +293,11 @@ describe('ResolveCaps', () => {
 
             const result = await ResolveCaps(roleObj, [role1, role2], [capName1, capName2], {});
 
-            expect(capMock1.called).to.be.true; 
+            expect(capMock1.called).to.be.true;
             expect(capMock2.called).to.be.true; // it should call this because we want to keep checking if child override works
 
             expect(result).to.be.false;
-            
+
           }
         );
 
@@ -314,12 +314,12 @@ describe('ResolveCaps', () => {
             return expect(
               ResolveCaps(roleObj, [role1, role2], [capName1, capName2], {})
             ).to.be.rejectedWith(Error);
-            
+
           }
         );
 
       });
-  
+
     });
 
     describe('and not all caps are present in stack', () => {
@@ -335,10 +335,10 @@ describe('ResolveCaps', () => {
       let roleObj;
 
       beforeEach(() => {
-        
+
         capMock1 = sandbox.stub(cap1, 'check');
         capMock2 = sandbox.stub(cap2, 'check');
-        
+
         roleObj = new Role(
           role1,
           {
@@ -372,7 +372,7 @@ describe('ResolveCaps', () => {
             expect(capMock2.called).to.be.true;
 
             expect(result).to.be.false;
-            
+
           }
         );
 

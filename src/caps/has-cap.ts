@@ -1,22 +1,25 @@
-import { Cap } from './cap';
-
+import { ICap } from '../interfaces';
 export type BasicCapParams = {
 
 };
 
-export class HasCap extends Cap {
-  
+export class HasCap implements ICap {
+
   constructor(
-    name: string,
-    private params?:BasicCapParams
+    private name: string,
+    private params?: BasicCapParams
   ) {
-    
-    super( name );
+
+  }
+
+  public getName() {
+
+    return this.name;
 
   }
 
   public check(context?: any) {
-    
+
     return Promise.resolve(true);
 
   }

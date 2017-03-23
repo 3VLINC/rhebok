@@ -1,7 +1,7 @@
 export class InvalidPathError extends Error {
 
   constructor(rolePath: string) {
-    
+
     super(`Role ${rolePath} could not be found`);
 
   }
