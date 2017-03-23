@@ -1,6 +1,6 @@
 {
   "name": "rhebok",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Easy to use hierarchical role based access control (RBAC) with support for asynchronous authorization.",
   "keywords": [
     "rbac",
