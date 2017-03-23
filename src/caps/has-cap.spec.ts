@@ -13,7 +13,7 @@ describe('HasCap', () => {
         expect(
           await cap.check()
         ).to.be.true;
-        
+
       }
     );
   });

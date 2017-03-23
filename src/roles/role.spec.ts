@@ -1,8 +1,7 @@
 import { Role } from './role';
-import { ConditionalCap } from '../caps/conditional-cap';
 import { HasCap } from '../caps/has-cap';
 import { expect } from '../utils/test';
-import { DuplicateRoleNameError } from './utils/errors';
+import { DuplicateRoleNameError } from '../errors';
 
 describe('Role', () => {
 
@@ -10,10 +9,10 @@ describe('Role', () => {
 
     describe('when role has cap', () => {
 
-      it('should return true', 
+      it('should return true',
         async function() {
 
-          const RootRoleObj = 
+          const RootRoleObj =
             new Role(
               'test',
               {
@@ -56,7 +55,7 @@ describe('Role', () => {
   describe('getChildren', () => {
 
     describe('when role has 3 children', () => {
-    
+
       it('should return three children', () => {
 
         const role = new Role(
@@ -83,22 +82,22 @@ describe('Role', () => {
     });
 
     describe('when role has no children', () => {
-    
+
       it('should return no children', () => {
 
         let role;
-        
+
         role = new Role(
           'testrole'
         );
 
         expect(role.getChildren().length).to.eql(0);
-        
+
         role = new Role(
           'testrole',
           {
             children: [
-              
+
             ]
           }
         );
