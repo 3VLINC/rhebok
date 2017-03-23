@@ -1,8 +1,0 @@
-src
-wallaby.config.js
-tsconfig.json
-.vscode
-.travis.json
-npm-debug.log
-yarn-error.log
-yarn.lock
