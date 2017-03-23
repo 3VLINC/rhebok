@@ -1,33 +1,28 @@
-import { isArray, find, sortedUniq, cloneDeep, filter } from 'lodash';
+import { find } from 'lodash';
 import { GetPathToRole } from './utils/get-path-to-role';
 import { ResolveCaps } from './utils/resolve-caps';
-import { Cap } from '../caps/cap';
-import { DuplicateRoleNameError } from './utils/errors';
+import { IRoleParams, IRole, ICap } from '../interfaces';
+import { DuplicateRoleNameError } from '../errors';
 
-export type RoleParams = {
-  caps?: Cap[];
-  children?: Role[];
-};
-
-export class Role {
+export class Role implements IRole {
 
   constructor(
-    private name: string,
-    private params: RoleParams = {}
+    private name: any,
+    private params: IRoleParams = {}
   ) {
 
   }
 
   getName() {
-    
+
     return this.name;
 
   }
 
   getCaps() {
 
-    return this.params.caps || [];
-    
+    return this.params.caps || [] as ICap[];
+
   }
 
   getChild(roleName: string) {
@@ -38,11 +33,11 @@ export class Role {
 
   getChildren() {
 
-    return this.params.children || [];
+    return this.params.children || [] as IRole[];
 
   }
 
-  async can(roleName:string, capabilities: string | string[], context?: any) {
+  async can(roleName: string, capabilities: string | string[], context?: any) {
 
     return await ResolveCaps(this, GetPathToRole(this, roleName), capabilities, context);
 
@@ -52,15 +47,15 @@ export class Role {
 
     if (-1 !== roleNames.indexOf(this.getName())) {
 
-      throw new DuplicateRoleNameError(this.getName())
+      throw new DuplicateRoleNameError(this.getName());
 
     } else {
 
       roleNames.push(this.getName());
 
-      for(let child of this.getChildren()) {
-        
-        child.validate(roleNames); 
+      for (let child of this.getChildren()) {
+
+        child.validate(roleNames);
 
       }
 

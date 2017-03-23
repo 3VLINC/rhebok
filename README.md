@@ -8,13 +8,16 @@ This module works by defining a hierarchy of roles and capabilities and checking
 
 This module is in beta. The API could change prior to 1.0 release.
 
+## Changelog
+- 0.2.0: Instead of extending the `Cap` class, you should now create a class that implements `ICap`. See the example.spec.ts file for implementation details.
+
 ## Install
 ```txt
 npm install rhebok
 ```
 
 ## Sample Code
-Code samples demonstrating the usage of this module are [available here](https://github.com/3VLINC/rhebok-samples).
+Code samples demonstrating the usage of this module are [available here](https://github.com/3VLINC/rhebok/tree/master/src/examples).
 
 ## Objects
 
@@ -51,8 +54,9 @@ const SimpleRoleSchema = new Role(
 	}
  ).validate();
 ```
-####Methods
-#####Can
+#### Methods
+
+##### Can
 Accepts a role name, capability name and a context object. The context object is passed into any `ConditionalCap` to help it decide if the role should pass the capability check. This method returns a promise which resolves to true if the role has the capability.
 
 ```
@@ -96,111 +100,4 @@ You may wish to extend the Role object in your application with a thin wrapper. 
  1. You can use types for your roles and the context parameter which gives you the benefits of type checking in Typescript.
  2. You can encapsulate logic for asynchronously retrieving a users role. This is especially helpful when the users role depends on the authorization context (i.e. the users role depends on the particular object they are trying to access).
 
-#### Example
-```
-import { Role, RoleParams, HasCap, ConditionalCap } from 'rhebok';
-
-// Define our role type
-export type EventRoleName = 'logged-out' | 'eventManager' | 'eventOfficer';
-
-// Define our role checking context object
-export type EventRoleContext = {
-  userId: number,
-  eventId?: number
-};
-
-// A conditional check we'll use to see if the context user is the owner of an event
-const isOwnerOfEvent = async (context: EventRoleContext) => {
-
-	//Do something asynchronous to get the event object
-	const event = await backend.getEvent(context.eventId);
-	
-	return context.userId === event.eventOwnerId;
-
-}
-
-class EventRole extends Role {
-
-  constructor(name: EventRoleName, params?: RoleParams) {
-
-    super(name, params);
-
-  }
-
-  public async isAbleTo(capabilities: string | string[], context: EventRoleContext) {
-
-	// Do something asynchronous
-    const role = await backend.getUsersRoleOnEvent(context.userId, context.eventId);
-
-    return this.can(role, capabilities, context);
-
-  }
-
-}
-
-export const RoleSchema = new EventRole(
-  'logged-out',
-  {
-    caps: [
-      new HasCap('user:create')
-    ],
-    children: [
-      new EventRole(
-        'eventOfficer',
-        {
-          caps: [
-            new HasCap('event:view'),
-            new ConditionalCap('event:edit', { if: isOwnerOfEvent })
-          ],
-          children: [
-            new EventRole(
-              'eventManager',
-              {
-                caps: [
-                  new HasCap('event:edit')
-                ]
-              }
-            )
-          ]
-        }
-      )
-    ]
-  }
-);
-
-const can = await RoleSchema.isAbleTo('event:edit', { userId: 5, eventId: 5});
-
-if (!can) { throw new Error('Can\'t touch this!'); }
-```
-
-### Extending Capabilities
-You can import the abstract class `Cap` from the package and create your own custom capability objects.
-
-```
-import { Cap } from 'rhebok';
-
-export class MyCustomCap extends Cap {
-
-    public async check(context?: any) {
-
-        if (context.isEmergency === true || context.color === 'green') { return true; }
-
-        return false;
-
-    }
-
-}
-
-const role = new Role(
-        'driver',
-        {
-            caps: [
-                new MyCustomCap('go-through-light')
-            ]
-        }
-    );
-
-const can = await role.can('driver', 'go-through-light', { color: 'red', isEmergency: true })
-
-if (!can) { throw new Error('You must stop.'); }
-```
+The [examples folder](https://github.com/3VLINC/rhebok/tree/master/src/examples) shows how to extend roles and capabilities with custom typings.
