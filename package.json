@@ -24,8 +24,7 @@
     "tslint": "tslint ./src/**/*.ts",
     "pretest": "npm run build",
     "test": "mocha \"dist/**/*.spec.js\"",
-    "prepublish": "npm run tslint",
-    "publish": "npm run build",
+    "prepublish": "npm run tslint && npm run build",
     "build": "rimraf dist/* && tsc",
     "dev": "tsc -w"
   },
