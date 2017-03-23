@@ -1,6 +1,6 @@
 {
   "name": "rhebok",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Easy to use hierarchical role based access control (RBAC) with support for asynchronous authorization.",
   "keywords": [
     "rbac",
@@ -18,8 +18,10 @@
     "node": ">=6.0.0"
   },
   "scripts": {
+    "tslint": "tslint ./src/**/*.ts",
     "pretest": "npm run build",
     "test": "mocha \"dist/**/*.spec.js\"",
+    "prepublish": "npm run tslint",
     "publish": "npm run build",
     "build": "rimraf dist/* && tsc",
     "dev": "tsc -w"
@@ -39,6 +41,7 @@
     "rimraf": "^2.5.4",
     "sinon": "^1.17.6",
     "sinon-as-promised": "^4.0.2",
+    "tslint": "^4.5.1",
     "typescript": "^2.1.4"
   },
   "dependencies": {
