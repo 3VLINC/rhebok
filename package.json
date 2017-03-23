@@ -11,8 +11,8 @@
     "async",
     "hierarchical"
   ],
-  "main": "./dist/index.js",
-  "typings": "./dist/index",
+  "main": "dist/index.js",
+  "typings": "dist/index",
   "repository": "https://github.com/3VLINC/rhebok",
   "enginesStrict": {
     "node": ">=6.0.0"
@@ -21,7 +21,7 @@
     "dist/**"
   ],
   "scripts": {
-    "tslint": "tslint ./src/**/*.ts",
+    "tslint": "tslint src/**/*.ts",
     "pretest": "npm run build",
     "test": "mocha \"dist/**/*.spec.js\"",
     "prepublish": "npm run tslint && npm run build",
